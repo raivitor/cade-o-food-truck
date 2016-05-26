@@ -4,13 +4,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Usuario extends CI_Controller {
 
     public function index(){
-        
-        $this->load->model("Usuario_model");
-        $usuarios = $this->Usuario_model->get();
+        $this->output->enable_profiler(TRUE);
+        $data = array('returned: '. $this->input->get('id'));
+        //print_r($data);
+        $params = json_decode(file_get_contents('php://input'), TRUE);
 
-        $dados = array("usuarios" => $usuarios);
-        $this->load->helper(array("url", "form"));
-        $this->load->view("usuario/index", $dados);
+        $usuario = array(
+            "nome" => $this->input->post_get("nome"),
+            "email" => $this->input->post_get("email"),
+            "senha" => $this->input->post_get("senha")
+        );
+        json_output(201, $usuario);
+        //$this->response($data);
     }
 
     public function Cadastrar() {
