@@ -1,63 +1,71 @@
 <?php
 class Usuario_model extends CI_Model {
-    /**
-	 * Grava os dados na tabela.
-	 * @param $dados. Array que contém os campos a serem inseridos
-	 * @param Se for passado o $id via parâmetro, então atualiza o registro em vez de inseri-lo.
-	 * @return boolean
-	 */
-	public function store($dados = null, $id = null) {
-		if ($dados) {
-			if ($id) {
-				$this->db->where('id', $id);
-				if ($this->db->update("usuarios", $dados)) {
-					return true;
-				} else {
-					return false;
-				}
-			} else {
-				if ($this->db->insert("usuarios", $dados)) {
-					return true;
-				} else {
-					return false;
-				}
-			}
-		}
-	}
 
-    /**
-	 * Recupera o registro do banco de dados
-	 * @param $id - Se indicado, retorna somente um registro, caso contário, todos os registros.
-	 * @return objeto da banco de dados da tabela cadastros
-	 */
-	public function get($id = null){
-		if ($id) {
-			$this->db->where('id', $id);
-		}
-		return $this->db->get('usuarios')->result_array();;
-	}
-
-    /**
-	 * Deleta um registro.
-	 * @param $id do registro a ser deletado
-	 * @return boolean;
-	 */
-    public function deleteUser($id = null){
-    	if ($id) {
-			return $this->db->where('id', $id)->delete('usuarios');
-		}
+    function getAll() {
+        $query = $this->db->query("SELECT * FROM usuario");
+        if($query->num_rows() > 0) {
+            foreach($query->result() as $row) {
+                $users[] = $row;
+            }
+            return $users;
+        }
     }
 
-    /**
-    * Realiza o login do usuário
-    * @param $email - Email do usuário
-    * @param $senha - Senha do usuário
-    * @return Usuário se tiver, se não null
-    */
-    public function Autenticar($email, $senha) {
-	    $this->db->where("email", $email);
-	    $this->db->where("senha", $senha);
-	    $usuario = $this->db->get("usuarios")->row_array();
-	    return $usuario;
-	}
+    function getUser($id) {
+        if($id) {
+            $query = $this->db->query("SELECT * FROM usuario WHERE id='$id'");
+            if($query->num_rows() == 1) {
+                return $query->result();
+            }
+        }
+    }
+
+    function createUser($new_user) {
+
+       $nome  = $new_user['name'];
+       $senha = $new_user['password'];
+       $email = $new_user['email'];
+       $data  = $new_user['birthday'];
+       $cpf   = $new_user['cpf'];
+
+       $query = "INSERT INTO usuario (nome, senha, email,
+                 data_de_nascimento, cpf) VALUES 
+                 ('$nome', '$senha', '$email',
+                 '$data', '$cpf')";
+
+        if ( ! $this->db->query($query))
+        {
+            return $this->db->error();
+        } else {
+            return "Usuario adicionado com sucesso :)";
+        }
+    }
+
+    function updateUser($user) {
+       $id    = $user['id'];
+       $nome  = $user['name'];
+       $senha = $user['password'];
+       $email = $user['email'];
+       $data  = $user['birthday'];
+       $cpf   = $user['cpf'];
+
+       $query = "UPDATE usuario SET email=$email, nome='$name',
+                 senha='$password',data_de_nascimento='$data', 
+                 cpf='$cpf' WHERE id=$id"; 
+
+       if( ! $this->db->query($query)) {
+            return $this->db->error();
+        } else {
+            return "Usuario atualizado com sucesso :)";
+        }
+    }
+
+    function deleteUser($id) {
+        if ( ! $this->db->query("DELETE FROM usuario WHERE id='$id'")) {
+            return $this->db->error();
+        } else {
+            return "Usuario removido com sucesso :)";
+        }
+    }
+
 }

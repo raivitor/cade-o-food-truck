@@ -1,51 +1,98 @@
 <?php
+
 defined('BASEPATH') OR exit('No direct script access allowed');
+require APPPATH . '/libraries/REST_Controller.php';
 
-class Usuario extends CI_Controller {
+class Usuario extends REST_Controller {
 
-    public function index(){
-        $this->output->enable_profiler(TRUE);
-        $data = array('returned: '. $this->input->get('id'));
-        //print_r($data);
-        $params = json_decode(file_get_contents('php://input'), TRUE);
-
-        $usuario = array(
-            "nome" => $this->input->post_get("nome"),
-            "email" => $this->input->post_get("email"),
-            "senha" => $this->input->post_get("senha")
-        );
-        json_output(201, $usuario);
-        //$this->response($data);
+    function __construct() {
+        parent::__construct();
+        $this->load->model('Usuario_model');
+        $this->output->set_content_type('application/json');
     }
 
-    public function Cadastrar() {
-    	$usuario = array(
-	        "nome" => $this->input->post("nome"),
-	        "email" => $this->input->post("email"),
-	        "senha" => md5($this->input->post("senha"))
-	    );
+    function user_get() {
+        $id = $this->get('id');
 
-    	$this->load->model("Usuario_model");
-    	$this->Usuario_model->store($usuario);
-        $this->index();
+        if($id) {            
+            $user = $this->Usuario_model->getUser($id);
+            if($user) {
+                $this->response($user, 200);
+            } else {
+                $this->response(NULL, 400);
+            }
+        }
+        else {
+            $this->response(NULL, 404);
+        }
     }
 
-    public function Editar($id = null){
-        if($id){
-            $this->load->model("Usuario_model");
-            $usuarios = $this->Usuario_model->getUser($id);   
-        } else{
+    function users_get() {
+        $data['users'] = $this->Usuario_model->getAll();
 
+        if($data) {
+            $this->response($data, 200);
+        } else {
+            $this->response(NULL, 404);
+        }
+    }
+
+    function user_put() {
+
+        $new_user = [            
+            'name'     => $this->input->get('name'),
+            'password' => $this->input->get('password'),
+            'email'    => $this->input->get('email'),
+            'birthday' => $this->input->get('birthday'),
+            'cpf'      => $this->input->get('cpf') 
+        ];
+
+        if(! isset($new_user) || ! empty($new_user) ) {
+            if($result = $this->Usuario_model->createUser($new_user)) {
+              $this->response($result, 201); 
+            }
+        } else {
+            $this->response("Usuario nao definido", 400);
+        }
+        
+    }
+
+    function user_post() {
+
+        $user = [            
+            'name'     => $this->input->get('name'),
+            'password' => $this->input->get('password'),
+            'email'    => $this->input->get('email'),
+            'birthday' => $this->input->get('birthday'),
+            'cpf'      => $this->input->get('cpf') 
+        ];
+
+        if(! isset($user) || ! empty($user) ) {
+            if($result = $this->Usuario_model->createUser($user)) {
+              $this->response($result, 201); 
+            }
+        } else {
+            $this->response("Usuario nao definido", 400);
+        }
+        
+    }
+
+
+    function user_delete() {
+        $id = (int) $this->get('id');
+
+        if ($id <= 0)
+        {
+            $this->response(NULL, 400); 
         }
 
-    }
-/*
-    public function Autenticar(){
-        $usuario = array(
-            "email" => $this->input->post("email"),
-            "senha" => md5($this->input->post("senha"))
-        );
+        $this->Usuario_model->deleteUser($id);
 
-        $this->load->model("Usuario_model")->Autenticar()
-    }*/
+        $message = [
+            'id' => $id,
+            'message' => 'Usuario deletado :)'
+        ];
+
+        $this->set_response($message, 204);
+    }
 }
