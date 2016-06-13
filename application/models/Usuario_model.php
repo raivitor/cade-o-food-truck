@@ -27,11 +27,13 @@ class Usuario_model extends CI_Model {
        $email = $new_user['email'];
        $data  = $new_user['birthday'];
        $cpf   = $new_user['cpf'];
+       $papel = $new_user['papel'];
+       $sexo  = $new_user['sexo'];
 
        $query = "INSERT INTO usuario (nome, senha, email,
-                 data_de_nascimento, cpf) VALUES 
+                 data_de_nascimento, cpf, papel, sexo) VALUES 
                  ('$nome', '$senha', '$email',
-                 '$data', '$cpf')";
+                 '$data', '$cpf', '$papel', '$sexo')";
 
         if ( ! $this->db->query($query))
         {
@@ -48,10 +50,10 @@ class Usuario_model extends CI_Model {
        $email = $user['email'];
        $data  = $user['birthday'];
        $cpf   = $user['cpf'];
+       $papel = $user['papel'];
+       $sexo  = $user['sexo'];
 
-       $query = "UPDATE usuario SET email=$email, nome='$name',
-                 senha='$password',data_de_nascimento='$data', 
-                 cpf='$cpf' WHERE id=$id"; 
+       $query = "UPDATE usuario SET email='$email', nome='$nome', senha='$senha', data_de_nascimento='$data', cpf='$cpf', papel='$papel', sexo='$sexo' WHERE id='$id'"; 
 
        if( ! $this->db->query($query)) {
             return $this->db->error();

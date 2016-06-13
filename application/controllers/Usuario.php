@@ -40,12 +40,16 @@ class Usuario extends REST_Controller {
     function user_put() {
 
         $new_user = [            
-            'name'     => $this->input->get('name'),
-            'password' => $this->input->get('password'),
-            'email'    => $this->input->get('email'),
-            'birthday' => $this->input->get('birthday'),
-            'cpf'      => $this->input->get('cpf') 
+            'name'     => $this->put('name'),
+            'password' => $this->put('password'),
+            'email'    => $this->put('email'),
+            'birthday' => $this->put('birthday'),
+            'cpf'      => $this->put('cpf'), 
+            'papel'    => $this->put('papel'),
+            'sexo'     => $this->put('sexo') 
         ];
+
+        print_r($new_user);
 
         if(! isset($new_user) || ! empty($new_user) ) {
             if($result = $this->Usuario_model->createUser($new_user)) {
@@ -60,15 +64,20 @@ class Usuario extends REST_Controller {
     function user_post() {
 
         $user = [            
-            'name'     => $this->input->get('name'),
-            'password' => $this->input->get('password'),
-            'email'    => $this->input->get('email'),
-            'birthday' => $this->input->get('birthday'),
-            'cpf'      => $this->input->get('cpf') 
+            'id'       => $this->post('id'),
+            'name'     => $this->post('name'),
+            'password' => $this->post('password'),
+            'email'    => $this->post('email'),
+            'birthday' => $this->post('birthday'),
+            'cpf'      => $this->post('cpf'),
+            'papel'    => $this->post('papel'),
+            'sexo'     => $this->post('sexo') 
         ];
 
+        print_r($user);
+
         if(! isset($user) || ! empty($user) ) {
-            if($result = $this->Usuario_model->createUser($user)) {
+            if($result = $this->Usuario_model->updateUser($user)) {
               $this->response($result, 201); 
             }
         } else {
@@ -83,6 +92,7 @@ class Usuario extends REST_Controller {
 
         if ($id <= 0)
         {
+            $message = "ID inválido";
             $this->response(NULL, 400); 
         }
 
