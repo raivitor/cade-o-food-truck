@@ -7,6 +7,11 @@ class Home extends CI_Controller {
         $this->load->helper(array("url"));
         $this->load->view("home/index");
     }
+
+    public function cadastro(){
+        $this->load->helper(array("url", "form"));
+        $this->load->view("home/cadastro");
+    }
 /*
     public function Autenticar(){
         $usuario = array(

@@ -15,9 +15,11 @@ class Usuario extends CI_Controller {
 
     public function Cadastrar() {
     	$usuario = array(
-	        "nome" => $this->input->post("nome"),
+	        "nome"  => $this->input->post("nome"),
 	        "email" => $this->input->post("email"),
-	        "senha" => md5($this->input->post("senha"))
+	        "senha" => md5($this->input->post("senha")),
+            "cpf"   => $this->input->post("cpf"),
+            "data_de_nascimento"   => $this->input->post("nascimento")
 	    );
 
     	$this->load->model("Usuario_model");

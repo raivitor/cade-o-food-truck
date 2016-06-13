@@ -12,7 +12,7 @@
     <title>CadêOFoodTruck</title>
 
     <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="<?= base_url('css/bootstrap.min.css') ?>" type="text/css">
 
     <!-- Custom Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
@@ -20,12 +20,12 @@
     <link href='https://www.google.com/fonts#QuickUsePlace:quickUse/Family:Roboto' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Exo+2' rel='stylesheet' type='text/css'>
 
-    <link rel="stylesheet" href="<?= base_url("font-awesome/css/font-awesome.min.css") ?> "type="text/css">
+    <link rel="stylesheet" href="<?= base_url('font-awesome/css/font-awesome.min.css') ?> "type="text/css">
 
     <!-- Plugin CSS -->
-    <link rel="stylesheet" href="<?= base_url("css/animate.css") ?>" type="text/css">
+    <link rel="stylesheet" href="<?= base_url('css/animate.css') ?>" type="text/css">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="<?= base_url("css/creative.css") ?>" type="text/css">
+    <link rel="stylesheet" href="<?= base_url('css/creative.css') ?>" type="text/css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -91,10 +91,33 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <h2 class="section-heading">Cadê o FoodTruck?</h2>
+                    <h2 class="section-heading">Cadastro </h2>
                     <hr class="light">
-                    <p class="text-faded">Para quê rodar a cidade procurando o FoodTruck dos seus desejos se você pode em um click encontrá-lo? Ainda dá para conferir as promoções e o cardápio antes de escolher a melhor opção.</p>
-                    <a href="#services" class="btn btn-default btn-xl page-scroll">Cadê?</a>
+                    <p class="text-faded">
+                    <form method="POST" action="<?= base_url('index.php/Usuario/Cadastrar') ?>">
+                        <div class="form-group">
+                            <label for="nome">Nome</label>
+                            <input type="text" name="nome" class="form-control" id="nome" placeholder="Nome">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" name="email" class="form-control" id="email" placeholder="Email">
+                        </div>
+                        <div class="form-group">
+                            <label for="nascimento">Data de nascimento</label>
+                            <input type="date" name="nascimento" class="form-control" id="nascimento" placeholder="Data de nascimento">
+                        </div> 
+                        <div class="form-group">
+                            <label for="cpf">CPF</label>
+                            <input type="text" name="cpf" class="form-control" id="cpf" placeholder="cpf">
+                        </div>
+                        <div class="form-group">
+                            <label for="senha">Senha</label>
+                            <input type="password" name="senha" class="form-control" id="senha" placeholder="Senha">
+                        </div>
+                      <button type="submit" class="btn btn-default">Cadastrar</button>
+                    </form>
+                    </p>
                 </div>
             </div>
         </div>
