@@ -10,13 +10,13 @@ class Usuario_model extends CI_Model {
 		if ($dados) {
 			if ($id) {
 				$this->db->where('id', $id);
-				if ($this->db->update("usuarios", $dados)) {
+				if ($this->db->update("usuario", $dados)) {
 					return true;
 				} else {
 					return false;
 				}
 			} else {
-				if ($this->db->insert("usuarios", $dados)) {
+				if ($this->db->insert("usuario", $dados)) {
 					return true;
 				} else {
 					return false;
@@ -34,7 +34,7 @@ class Usuario_model extends CI_Model {
 		if ($id) {
 			$this->db->where('id', $id);
 		}
-		return $this->db->get('usuarios')->result_array();;
+		return $this->db->get('usuario')->result_array();;
 	}
 
     /**
@@ -44,7 +44,7 @@ class Usuario_model extends CI_Model {
 	 */
     public function deleteUser($id = null){
     	if ($id) {
-			return $this->db->where('id', $id)->delete('usuarios');
+			return $this->db->where('id', $id)->delete('usuario');
 		}
     }
 
@@ -57,7 +57,7 @@ class Usuario_model extends CI_Model {
     public function Autenticar($email, $senha) {
 	    $this->db->where("email", $email);
 	    $this->db->where("senha", $senha);
-	    $usuario = $this->db->get("usuarios")->row_array();
+	    $usuario = $this->db->get("usuario")->row_array();
 	    return $usuario;
 	}
 }
