@@ -39,18 +39,21 @@ class Cardapio extends REST_Controller {
 
     function cardapio_put() {
 
-        $cardapio = [            
-            'name'          => $this->put('nome'),
-            'preco'         => $this->put('preco'),
-            'ingredientes'  => $this->put('ingredientes'),
-            'descricao'     => $this->put('descricao')
+        $item = [            
+            'nome'            => $this->put('nome'),
+            'preco'           => $this->put('preco'),
+            'ingredientes'    => $this->put('ingredientes'),
+            'descricao'       => $this->put('descricao'),
+            'sabor_id'        => $this->put('sabor_id'),
+            'categoria_nome'  => $this->put('categoria_nome'),
+            'food_truck_id'   => $this->put('food_truck_id')
         ];
 
-        print_r($cardapio);
+        print_r($item);
 
-        if(! isset($cardapio) || ! empty($cardapio) ) {
+        if(! isset($item) || ! empty($item) ) {
 
-            if($result = $this->Cardapio_model->createItemDeCardapio($cardapio)) {
+            if($result = $this->Cardapio_model->createItemDeCardapio($item)) {
 
                 $this->response($result, 201); 
             }
@@ -63,17 +66,19 @@ class Cardapio extends REST_Controller {
     function cardapio_post() {
 
         $cardapio = [            
-            'id'            => $this->put('id'),
-            'name'          => $this->put('nome'),
-            'preco'         => $this->put('preco'),
-            'ingredientes'  => $this->put('ingredientes'),
-            'descricao'     => $this->put('descricao')
+            'id'             => $this->post('id'),
+            'nome'           => $this->post('nome'),
+            'preco'          => $this->post('preco'),
+            'ingredientes'   => $this->post('ingredientes'),
+            'descricao'      => $this->post('descricao'),
+            'sabor_id'       => $this->post('sabor_id'),
+            'categoria_nome' => $this->post('categoria_nome')
         ];
 
         print_r($cardapio);
 
         if(! isset($cardapio) || ! empty($cardapio) ) {
-            if($result = $this->Cardapio_model->updateItemDe($cardapio)) {
+            if($result = $this->Cardapio_model->updateItemDeCardapio($cardapio)) {
               $this->response($result, 201); 
             }
         } else {

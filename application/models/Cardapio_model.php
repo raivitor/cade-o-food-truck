@@ -20,15 +20,17 @@ class Cardapio_model extends CI_Model {
         }
     }
 
-    function createItemDeCardapio() {
+    function createItemDeCardapio($item) {
 
-       $nome         = $item['nome'];
-       $preco        = $item['preco'];
-       $ingredientes = $item['ingredientes'];
-       $descricao    = $item['descricao'];
+       $nome            = $item['nome'];
+       $preco           = $item['preco'];
+       $ingredientes    = $item['ingredientes'];
+       $descricao       = $item['descricao'];
+       $sabor_id        = $item['sabor_id'];
+       $categoria_nome  = $item['categoria_nome'];
+       $food_truck_id   = $item['food_truck_id'];
 
-       $query = "INSERT INTO item_de_cardapio (nome, preco, ingredientes, descricao) VALUES 
-                 ('$nome', '$preco', '$ingredientes', '$descricao')";
+       $query = "INSERT INTO item_de_cardapio (nome, preco, ingredientes, descricao, sabor_id, categoria_nome, food_truck_id ) VALUES ('$nome', '$preco', '$ingredientes', '$descricao', '$sabor_id', '$categoria_nome', '$food_truck_id')";
 
         if ( ! $this->db->query($query))
         {
@@ -39,13 +41,15 @@ class Cardapio_model extends CI_Model {
     }
 
     function updateItemDeCardapio($item) {
-       $id            = $item['id'];
-       $nome          = $item['nome'];
-       $preco         = $item['preco'];
-       $descicao      = $item['descricao'];
-       $ingredientes  = $item['ingredientes'];
+       $id             = $item['id'];
+       $nome           = $item['nome'];
+       $preco          = $item['preco'];
+       $descricao       = $item['descricao'];
+       $ingredientes   = $item['ingredientes'];
+       $sabor_id       = $item['sabor_id'];
+       $categoria_nome = $item['categoria_nome'];
 
-       $query = "UPDATE item_de_cardapio SET nome='$nome', preco='$preco', descricao='$descricao', ingredientes='$ingredientes'  WHERE id='$id'"; 
+       $query = "UPDATE item_de_cardapio SET nome='$nome', preco='$preco', descricao='$descricao', ingredientes='$ingredientes', sabor_id='$sabor_id', categoria_nome='$categoria_nome'  WHERE id='$id'"; 
 
        if( ! $this->db->query($query)) {
             return $this->db->error();
