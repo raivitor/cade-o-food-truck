@@ -8,6 +8,7 @@ class Usuario extends REST_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('Usuario_model');
+        $this->load->model('Gerente_model');
         $this->output->set_content_type('application/json');
     }
 
@@ -50,10 +51,18 @@ class Usuario extends REST_Controller {
         ];
 
         print_r($new_user);
+        //print("Papel : " . $this->Usuario_model->getPapel($new_user['papel']));
 
         if(! isset($new_user) || ! empty($new_user) ) {
+
             if($result = $this->Usuario_model->createUser($new_user)) {
-              $this->response($result, 201); 
+
+                //tenta armazenar papel
+                if($this->Usuario_model->getPapel($new_user['papel']) == "Gerente") {
+                    $this->Gerente_model->createGerente($new_user['email']);
+                }
+
+                $this->response($result, 201); 
             }
         } else {
             $this->response("Usuario nao definido", 400);

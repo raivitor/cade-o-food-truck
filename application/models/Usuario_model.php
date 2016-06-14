@@ -20,6 +20,13 @@ class Usuario_model extends CI_Model {
         }
     }
 
+    function getPapel($email) {
+        $query = $this->db->query("SELECT papel FROM usuario WHERE email='$email'");
+        if($query->num_rows() == 1) {
+            return $query->result();
+        }
+    }
+
     function createUser($new_user) {
 
        $nome  = $new_user['name'];
