@@ -9,6 +9,7 @@ class Usuario extends REST_Controller {
         parent::__construct();
         $this->load->model('Usuario_model');
         $this->load->model('Gerente_model');
+        $this->load->model('Dono_model');
         $this->output->set_content_type('application/json');
     }
 
@@ -58,6 +59,8 @@ class Usuario extends REST_Controller {
 
                 if( $new_user['papel'] == "Gerente") {
                     $this->Gerente_model->createGerente($new_user['email']);
+                } elseif ( $new_user['papel'] == "Dono"  ) {
+                    $this->Dono_model->createDono($new_user['email']);
                 }
 
                 $this->response($result, 201); 
