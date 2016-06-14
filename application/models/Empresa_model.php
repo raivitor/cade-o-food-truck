@@ -11,15 +11,24 @@ class Empresa_model extends CI_Model {
         }
     }
 
-    function getEmp($idDono) {
+    function getEmp($id) {
+      if($id) {
+        $query = $this->db->query("SELECT * FROM empresa WHERE id='$id'");
+        if($query->num_rows() == 1) {
+          return $query->result();
+        }
+      }
+    }
+
+    function getEmpDono($idDono) {
         if($idDono) {
-            $query = $this->db->query("SELECT * FROM empresa WHERE dono_id='idDono'");
+            $query = $this->db->query("SELECT * FROM empresa WHERE dono_id='$idDono'");
             foreach($query->result() as $row) {
               $empresas[] = $row;
             }
             return $empresas;
         }
-    }
+    }    
 
     function createEmp($new_emp) {
 
@@ -43,7 +52,7 @@ class Empresa_model extends CI_Model {
 
        $query = "UPDATE empresa SET nome='$nome', cnpj='$cnpj' WHERE id='$id'"; 
 
-       if( ! $this->db->query($query)) {
+       if(!$this->db->query($query)) {
             return $this->db->error();
         } else {
             return true;
@@ -57,5 +66,4 @@ class Empresa_model extends CI_Model {
             return true;
         }
     }
-
 }
