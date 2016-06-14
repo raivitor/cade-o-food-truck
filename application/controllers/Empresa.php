@@ -52,7 +52,7 @@ class Empresa extends REST_Controller {
                 $this->response($result, 201); 
             }
         } else {
-            $this->response("Empresa nao definido", 4;
+            $this->response("Empresa nao definido", 400);
         }
         
     }
@@ -71,7 +71,7 @@ class Empresa extends REST_Controller {
               $this->response($result, 201); 
             }
         } else {
-            $this->response("Empresa nao definido", 4;
+            $this->response("Empresa nao definido", 400);
         }
     }
 
