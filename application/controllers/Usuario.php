@@ -51,14 +51,12 @@ class Usuario extends REST_Controller {
         ];
 
         print_r($new_user);
-        //print("Papel : " . $this->Usuario_model->getPapel($new_user['papel']));
 
         if(! isset($new_user) || ! empty($new_user) ) {
 
             if($result = $this->Usuario_model->createUser($new_user)) {
 
-                //tenta armazenar papel
-                if($this->Usuario_model->getPapel($new_user['papel']) == "Gerente") {
+                if( $new_user['papel'] == "Gerente") {
                     $this->Gerente_model->createGerente($new_user['email']);
                 }
 
