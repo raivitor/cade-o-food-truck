@@ -40,12 +40,12 @@ class Empresa extends REST_Controller {
     function empresa_put() {
 
         $new_emp = [            
-            'nome'     => $this->put('nome'),
-            'cnpj'     => $this->put('cnpj'),
-            'idDono'   => $this->put('idDono')
+            'nome'      => $this->put('nome'),
+            'cnpj'      => $this->put('cnpj'),
+            'dono_id'   => $this->put('dono_id')
         ];
 
-        print_r($new_empresa);
+        print_r($new_emp);
 
         if(!isset($new_emp) || !empty($new_emp)) {
             if($result = $this->Empresa_model->createEmp($new_emp)) {
@@ -84,7 +84,7 @@ class Empresa extends REST_Controller {
             $this->response(NULL, 400); 
         }
 
-        $this->Empresa_model->deleteUser($id);
+        $this->Empresa_model->deleteEmp($id);
 
         $this->response('Empresa deletado', 204);
     }

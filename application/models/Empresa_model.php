@@ -32,11 +32,11 @@ class Empresa_model extends CI_Model {
 
     function createEmp($new_emp) {
 
-       $nome  = $new_emp['name'];
-       $cnpj  = $new_emp['cnpj'];
-       $idDono = $new_emp['idDono'];
+       $nome    = $new_emp['nome'];
+       $cnpj    = $new_emp['cnpj'];
+       $dono_id = $new_emp['dono_id'];
 
-       $query = "INSERT INTO empresa (nome, cnpj, idDono) VALUES ('$nome', '$cnpj', '$idDono')";
+       $query = "INSERT INTO empresa (nome, cnpj, dono_id) VALUES ('$nome', '$cnpj', '$dono_id')";
 
        if(!$this->db->query($query)){
           return $this->db->error();
