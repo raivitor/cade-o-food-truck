@@ -1,6 +1,6 @@
 <?php
 
-$url = $_SERVER['HTTP_HOST']."/ft/index.php/";
+$url = $_SERVER['HTTP_HOST']."/ft2/index.php/";
 
 function curl_get($url, $dados){
 	$ch = curl_init();
@@ -21,6 +21,7 @@ function curl_post($url, $dados){
 	curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 	// Acessar a URL e imprimir a saída
 	$result = curl_exec($ch);
+	$result = json_decode($result);
 	curl_close($ch);
 	return $result;
 }
@@ -34,7 +35,6 @@ function curl_put($url, $dados){
 	curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($dados));
 
 	$result = curl_exec($ch);
-	
     $result = json_decode($result);
 	curl_close($ch);
 	return $result;	
