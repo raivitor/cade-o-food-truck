@@ -31,7 +31,7 @@
 					<div class="col-xs-12 col-md-6 col-lg-3">
 						<br>
 
-						<a href="rotas.php?idTruck=1">
+						<a href="#">
 							<div class="panel panel-blue panel-widget ">
 								<div class="row no-padding">
 									<div class="col-sm-3 col-lg-5 widget-left">
