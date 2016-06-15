@@ -527,6 +527,19 @@ CREATE TABLE IF NOT EXISTS `food_truck`.`gerente_has_empresa` (
 ENGINE = InnoDB;
 
 
+DELIMITER $$
+
+USE `food_truck`$$
+DROP TRIGGER IF EXISTS `food_truck`.`avaliacao_AFTER_INSERT` $$
+USE `food_truck`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `food_truck`.`avaliacao_AFTER_INSERT` AFTER INSERT ON `avaliacao` FOR EACH ROW
+BEGIN
+UPDATE food_truck SET media_votos = (SELECT AVG(nota) AS nota FROM avaliacao WHERE avaliacao.food_truck_id = NEW.food_truck_id) WHERE food_truck.id = NEW.food_truck_id; 
+END$$
+
+
+DELIMITER ;
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
