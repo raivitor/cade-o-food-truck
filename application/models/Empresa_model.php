@@ -12,12 +12,12 @@ class Empresa_model extends CI_Model {
     }
 
     function getEmp($id) {
-      if($id) {
-        $query = $this->db->query("SELECT * FROM empresa WHERE id='$id'");
-        if($query->num_rows() == 1) {
-          return $query->result();
+        if($id) {
+            $query = $this->db->query("SELECT * FROM empresa WHERE id='$id'");
+            if($query->num_rows() == 1) {
+               return $query->result();
+            }
         }
-      }
     }
 
     function getEmpDono($idDono) {
@@ -66,4 +66,4 @@ class Empresa_model extends CI_Model {
             return true;
         }
     }
-}
+} 

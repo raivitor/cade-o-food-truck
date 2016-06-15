@@ -29,10 +29,10 @@ class Usuario_model extends CI_Model {
 
     function createUser($new_user) {
 
-       $nome  = $new_user['name'];
-       $senha = $new_user['password'];
+       $nome  = $new_user['nome'];
+       $senha = $new_user['senha'];
        $email = $new_user['email'];
-       $data  = $new_user['birthday'];
+       $data  = $new_user['nascimento'];
        $cpf   = $new_user['cpf'];
        $papel = $new_user['papel'];
        $sexo  = $new_user['sexo'];
@@ -44,9 +44,9 @@ class Usuario_model extends CI_Model {
 
         if ( ! $this->db->query($query))
         {
-            return $this->db->error();
+          return $this->db->error();
         } else {
-            return "Usuario adicionado com sucesso :)";
+            return false;
         }
     }
 
