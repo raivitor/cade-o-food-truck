@@ -42,16 +42,14 @@ class Usuario extends REST_Controller {
     function user_put() {
 
         $new_user = [            
-            'name'     => $this->put('name'),
-            'password' => $this->put('password'),
+            'nome'     => $this->put('nome'),
+            'senha' => $this->put('senha'),
             'email'    => $this->put('email'),
-            'birthday' => $this->put('birthday'),
+            'nascimento' => $this->put('nascimento'),
             'cpf'      => $this->put('cpf'), 
             'papel'    => $this->put('papel'),
             'sexo'     => $this->put('sexo') 
         ];
-
-        print_r($new_user);
 
         if(! isset($new_user) || ! empty($new_user) ) {
 
@@ -62,7 +60,6 @@ class Usuario extends REST_Controller {
                 } elseif ( $new_user['papel'] == "Dono"  ) {
                     $this->Dono_model->createDono($new_user['email']);
                 }
-
                 $this->response($result, 201); 
             }
         } else {
